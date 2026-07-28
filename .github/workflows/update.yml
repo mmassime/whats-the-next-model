@@ -2,7 +2,11 @@ name: update data
 
 on:
   schedule:
-    - cron: "17 6 * * *"
+    # Every 3 hours. Finer than the markets actually move — several ladders
+    # trade in the low hundreds of dollars — but cheap, and it stays well under
+    # Pages' ~10 branch-builds/hour. Not :00: scheduled runs queue behind
+    # platform load at the top of the hour and get delayed or dropped.
+    - cron: "17 */3 * * *"
   workflow_dispatch:
 
 permissions:
@@ -19,7 +23,8 @@ jobs:
       - run: python3 fetch.py
 
       # Each commit of data.json is one snapshot; git log is the whole history
-      # store, which is what Phase 2's movement arrows will read.
+      # store, which is what Phase 2's movement arrows will read. So a commit
+      # has to mean "a price moved", not "the job ran" — see -I below.
       - name: commit if changed
         run: |
           git config user.name "github-actions[bot]"
@@ -27,5 +32,11 @@ jobs:
           # index.html too: fetch.py rewrites its static: block so the served
           # markup carries the numbers for crawlers and no-JS readers.
           git add data.json index.html
-          git diff --cached --quiet || git commit -m "data: $(date -u +%Y-%m-%d)"
+          # -I skips a hunk whose every changed line matches: generated_at is a
+          # fresh timestamp on every run, so without this the guard never fires
+          # and eight runs a day become eight empty commits. A real move still
+          # commits — as does the daily as_of rollover, which keeps one snapshot
+          # a day even in a flat market.
+          git diff --cached -I'"generated_at"' --quiet ||
+            git commit -m "data: $(date -u +%Y-%m-%dT%H:%MZ)"
           git push

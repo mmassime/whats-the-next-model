@@ -8,8 +8,9 @@ fetch.py  ──cron──>  data.json  ──>  index.html   (fetched by the pa
              └───────────────────>  index.html   (static copy, spliced in)
 ```
 
-Three files, no backend, no dependencies. GitHub Actions runs `fetch.py` daily
-and commits both files; GitHub Pages serves the folder.
+Three files, no backend, no dependencies. GitHub Actions runs `fetch.py` every
+three hours and commits both files when a price actually moved; GitHub Pages
+serves the folder.
 
 ## Two market shapes
 
@@ -53,6 +54,11 @@ Each of these produced silently wrong output at some point:
   with no volume. Rendered as-is they read as 50% contenders.
 - **Gamma 403s urllib's default User-Agent.** curl works, so this passes local
   testing and fails only in the Action.
+- **`generated_at` defeats a "commit only if changed" guard.** It is a fresh
+  timestamp every run, so a plain `git diff --quiet` always sees a change and
+  every run commits. Harmless once a day; at every three hours it fills `git
+  log` — the Phase 2 history store — with empty snapshots. The Action diffs
+  with `-I'"generated_at"'` so a commit means a price moved.
 
 `python3 fetch.py --test` pins every one of them against trimmed real API output.
 
@@ -82,7 +88,7 @@ Two things about that splice, both learned the hard way:
   place (a CSS comment explaining the block) made the splice cut there and take
   the rest of the file with it. `fetch.py` now counts both markers and refuses
   unless each appears exactly once.
-- **`index.html` is a generated file now**, in that one region. The daily Action
+- **`index.html` is a generated file now**, in that one region. The Action
   commits it alongside `data.json`.
 
 There are also `og:`/`twitter:` tags, because this page's readers arrive from a
@@ -97,8 +103,8 @@ not a meta tag.
 ## Deploy
 
 Settings → Pages → deploy from branch, root. Actions needs read+write contents
-permission (Settings → Actions → General → Workflow permissions) for the daily
-commit to push.
+permission (Settings → Actions → General → Workflow permissions) for the
+scheduled commit to push.
 
 ## Design notes
 
