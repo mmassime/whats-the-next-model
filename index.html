@@ -1,0 +1,1014 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>What's the next model?</title>
+<meta name="description" content="Expected release dates for the next model from each AI lab, priced by Polymarket traders.">
+<link rel="canonical" href="https://mmassime.github.io/whats-the-next-model/">
+<!-- The share card. This page's traffic arrives from links pasted into HN,
+     Reddit, X and Slack, not from search, so a bare unfurl is a real cost.
+     No og:image on purpose: it would mean a generated PNG in the repo, and a
+     text card is most of the benefit. ponytail: add one if a post takes off. -->
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="What's the next model?">
+<meta property="og:title" content="What's the next model?">
+<meta property="og:description" content="Expected release dates for the next model from each AI lab, and who's ahead today — read off Polymarket prices.">
+<meta property="og:url" content="https://mmassime.github.io/whats-the-next-model/">
+<meta name="twitter:card" content="summary">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Ctext y='25' font-size='24'%3E%F0%9F%94%AE%3C/text%3E%3C/svg%3E">
+<style>
+/* Palette: dataviz reference instance, single-hue.
+   Lab identity is carried by grouping + direct labels, NOT by colour: past three
+   categorical slots no ordering clears the all-pairs gate, and this page shows
+   six labs on the timeline and twenty-one on the board. So one accent hue does
+   all the data ink, and colour is freed to mean something real — see .thin,
+   where a dashed outline marks a market too illiquid to trust. */
+:root {
+  color-scheme: light;
+  --surface-1:  #fcfcfb;
+  --plane:      #f9f9f7;
+  --ink:        #0b0b0b;
+  --ink-2:      #52514e;
+  --muted:      #898781;
+  --grid:       #e1e0d9;
+  --baseline:   #c3c2b7;
+  --border:     rgba(11,11,11,.10);
+  --shadow:     0 1px 2px rgba(11,11,11,.04), 0 8px 24px -12px rgba(11,11,11,.10);
+  --accent:     #2a78d6;
+  --accent-ink: #1c5cab;   /* accent on text, where 3:1 contrast is required */
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    color-scheme: dark;
+    --surface-1: #1a1a19;
+    --plane:     #0d0d0d;
+    --ink:       #ffffff;
+    --ink-2:     #c3c2b7;
+    --muted:     #898781;
+    --grid:      #2c2c2a;
+    --baseline:  #383835;
+    --border:    rgba(255,255,255,.10);
+    --shadow:    none;
+    --accent:     #3987e5;
+    --accent-ink: #86b6ef;
+  }
+}
+
+* { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; scroll-behavior: smooth; }
+body {
+  margin: 0;
+  background: var(--plane);
+  color: var(--ink);
+  font: 400 16px/1.55 system-ui, -apple-system, "Segoe UI", sans-serif;
+}
+.wrap { max-width: 920px; margin: 0 auto; padding: 40px 20px 72px; }
+a { color: inherit; }
+
+/* ---------- header + hero ---------- */
+header h1 { font-size: clamp(26px, 5vw, 38px); line-height: 1.15; letter-spacing: -.02em; margin: 0 0 10px; }
+.lede { color: var(--ink-2); margin: 0; max-width: 58ch; }
+.stamp { color: var(--muted); font-size: 13px; margin: 14px 0 0; }
+
+.hero {
+  margin: 28px 0 0; padding: 18px 22px 20px;
+  background: var(--surface-1); border: 1px solid var(--border);
+  border-left: 3px solid var(--accent);
+  border-radius: 14px; box-shadow: var(--shadow);
+}
+.hero-label { font-size: 12px; letter-spacing: .09em; text-transform: uppercase; color: var(--muted); }
+.hero-model { font-size: 19px; font-weight: 600; margin-top: 3px; }
+.hero-date { font-size: clamp(32px, 6.5vw, 46px); font-weight: 600; letter-spacing: -.025em; line-height: 1.1; margin-top: 6px; }
+.hero-away { color: var(--ink-2); font-size: 15px; }
+
+/* ---------- sections ---------- */
+section { margin-top: 46px; }
+h2 { font-size: 15px; font-weight: 600; letter-spacing: -.01em; margin: 0 0 4px; }
+.sub { color: var(--ink-2); font-size: 14px; margin: 0 0 18px; max-width: 64ch; }
+
+.panel {
+  background: var(--surface-1); border: 1px solid var(--border);
+  border-radius: 14px; box-shadow: var(--shadow); padding: 16px 18px 10px;
+}
+
+/* The pre-JS copy of the numbers, in the generated section#static below.
+   Everything else here is drawn client-side, so that block is the only thing a
+   crawler or a reader with JS off ever sees; the script removes it once the
+   real page renders. Never write its marker comment out in full anywhere else
+   in this file — fetch.py splices on that string and expects exactly one. */
+#static ul { margin: 0 0 14px; padding-left: 20px; }
+#static li { margin-bottom: 4px; }
+#static li + li { margin-top: 0; }
+
+/* glyph legend — explains the marks, since colour no longer encodes identity */
+.legend { display: flex; flex-wrap: wrap; gap: 8px 20px; margin: 0 0 10px; padding: 0 2px; list-style: none; }
+.legend li { display: flex; align-items: center; gap: 7px; font-size: 12.5px; color: var(--ink-2); }
+.legend svg { flex: none; display: block; }
+
+/* ---------- lab groups ---------- */
+.lab-head { display: flex; align-items: baseline; gap: 10px; margin: 34px 0 12px; }
+.lab-head:first-child { margin-top: 4px; }
+.lab-head h3 { font-size: 17px; font-weight: 600; letter-spacing: -.01em; margin: 0; }
+.lab-head .count { font-size: 13px; color: var(--muted); }
+
+/* ---------- model cards ---------- */
+.cards { display: grid; gap: 16px; }
+.card {
+  background: var(--surface-1); border: 1px solid var(--border);
+  border-radius: 14px; box-shadow: var(--shadow); padding: 18px 20px 14px;
+  scroll-margin-top: 16px;
+}
+.card-top { display: flex; flex-wrap: wrap; align-items: flex-start; gap: 10px 20px; }
+.card-id { flex: 1 1 210px; min-width: 0; }
+.card-name { font-size: 19px; font-weight: 600; letter-spacing: -.01em; margin: 0; overflow-wrap: anywhere; }
+.card-med { text-align: right; flex: none; }
+.card-med .v { font-size: 23px; font-weight: 600; letter-spacing: -.02em; display: block; }
+.card-med .k { font-size: 12px; color: var(--muted); text-transform: uppercase; letter-spacing: .08em; }
+.card-med .away { font-size: 13px; color: var(--ink-2); }
+
+.meta { display: flex; flex-wrap: wrap; gap: 8px 22px; align-items: center; margin: 14px 0 2px; font-size: 13px; color: var(--ink-2); }
+.conf { display: flex; align-items: center; gap: 8px; }
+.meter { display: flex; gap: 3px; }
+.meter i { width: 14px; height: 5px; border-radius: 2px; background: var(--baseline); }
+.meter i.on { background: var(--ink-2); }
+.src { margin-left: auto; color: var(--ink-2); text-decoration-color: var(--baseline); text-underline-offset: 3px; }
+.src:hover { color: var(--ink); }
+
+/* rung chips: direct labels + the keyboard path to every tooltip value */
+.rungs { display: flex; flex-wrap: wrap; gap: 6px; margin: 12px 0 0; padding: 0; list-style: none; }
+.rung {
+  font: inherit; font-size: 12.5px; font-variant-numeric: tabular-nums;
+  background: none; border: 1px solid var(--border); border-radius: 999px;
+  padding: 3px 10px; color: var(--ink-2); cursor: pointer;
+  display: flex; gap: 6px; align-items: baseline;
+}
+.rung b { color: var(--ink); font-weight: 600; }
+.rung:hover, .rung.hot { border-color: var(--baseline); background: var(--plane); }
+.rung:focus-visible, .chart:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+.chart { display: block; width: 100%; border-radius: 8px; }
+.chart:focus { outline: none; }
+.hitrow { cursor: pointer; }
+.hitrow:hover .band, .hitrow:focus-visible .band { fill-opacity: .40; }
+.hitrow:focus-visible { outline: none; }
+.hitrow:focus-visible .rowfocus { stroke: var(--ink-2); }
+.hitbar { cursor: default; }
+.hitbar:hover .bar, .hitbar:focus-visible .bar { fill-opacity: 1; }
+.hitbar:focus-visible { outline: none; }
+.hitbar:focus-visible .rowfocus { stroke: var(--ink-2); }
+
+/* labs the board prices but no release ladder covers */
+.alsos { display: flex; flex-wrap: wrap; gap: 6px; margin: 4px 2px 12px; padding: 0; list-style: none; }
+.also {
+  font-size: 12.5px; font-variant-numeric: tabular-nums; color: var(--ink-2);
+  border: 1px solid var(--border); border-radius: 999px; padding: 3px 10px;
+  display: flex; gap: 6px; align-items: baseline;
+}
+.also b { color: var(--ink); font-weight: 600; }
+.alsos-note { font-size: 12.5px; color: var(--muted); margin: 12px 2px 2px; }
+
+/* ---------- tooltip ---------- */
+#tip {
+  position: fixed; z-index: 20; pointer-events: none; opacity: 0;
+  transition: opacity .09s linear;
+  background: var(--surface-1); border: 1px solid var(--border);
+  border-radius: 10px; padding: 9px 12px; min-width: 150px;
+  box-shadow: 0 4px 14px rgba(0,0,0,.16); font-size: 13px;
+}
+#tip.on { opacity: 1; }
+#tip .t-when { color: var(--muted); font-size: 12px; }
+#tip .t-row { display: flex; align-items: center; gap: 8px; margin-top: 4px; }
+#tip .t-key { width: 12px; height: 2px; border-radius: 1px; flex: none; background: var(--accent); }
+#tip .t-val { font-weight: 600; font-size: 15px; }
+#tip .t-lab { color: var(--ink-2); }
+#tip .t-note { color: var(--muted); font-size: 12px; margin-top: 3px; }
+
+/* ---------- table view ---------- */
+details { margin-top: 44px; border-top: 1px solid var(--border); padding-top: 18px; }
+summary { cursor: pointer; font-size: 14px; font-weight: 600; }
+summary:hover { color: var(--ink-2); }
+.scroll { overflow-x: auto; margin-top: 16px; }
+table { border-collapse: collapse; font-size: 13.5px; width: 100%; }
+caption { text-align: left; color: var(--ink-2); font-size: 13px; padding: 14px 0 6px; }
+th, td { text-align: right; padding: 7px 10px; border-bottom: 1px solid var(--grid); white-space: nowrap; font-variant-numeric: tabular-nums; }
+th:first-child, td:first-child { text-align: left; }
+thead th { color: var(--muted); font-weight: 500; font-size: 12px; text-transform: uppercase; letter-spacing: .06em; }
+
+footer { margin-top: 44px; color: var(--muted); font-size: 13px; line-height: 1.6; }
+footer p { margin: 0 0 8px; max-width: 68ch; }
+.state { padding: 30px 0; color: var(--ink-2); }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header>
+  <h1>What&rsquo;s the next model?</h1>
+  <p class="lede">
+    Expected release dates for each lab&rsquo;s next model, and who&rsquo;s ahead today.
+    Every date is the median of what traders are betting on Polymarket.
+  </p>
+  <p class="stamp" id="stamp"></p>
+</header>
+
+<div id="hero"></div>
+
+<!-- static:start — rewritten by fetch.py on every run. Do not hand-edit. -->
+<section id="static">
+  <h2>Expected release dates</h2>
+  <ul>
+    <li>Google — Next Google Gemini Pro Model: expected <strong>21 August 2026</strong>, likely between 14 August 2026 and 28 August 2026</li>
+    <li>Anthropic — Next Mythos-Class Model: expected <strong>31 August 2026</strong>, likely between 15 August 2026 and 28 September 2026</li>
+    <li>Moonshot — Next Kimi K model: expected <strong>5 September 2026</strong>, likely between 16 August 2026 and 24 September 2026 (thin market)</li>
+    <li>OpenAI — GPT-6: expected <strong>16 September 2026</strong>, likely between 30 August 2026 and 25 October 2026</li>
+    <li>Anthropic — Next Claude Sonnet: expected <strong>27 September 2026</strong>, likely between 25 August 2026 and 30 October 2026 (thin market)</li>
+    <li>Anthropic — Next Claude Haiku: expected <strong>17 October 2026</strong> (thin market)</li>
+    <li>xAI — Grok 5: expected <strong>15 November 2026</strong>, likely between 5 October 2026 and 25 December 2026 (thin market)</li>
+    <li>Moonshot — Kimi K4: expected <strong>21 December 2026</strong> (thin market)</li>
+    <li>Microsoft — New MAI thinking model: not before <strong>31 December 2026</strong> on current prices (thin market)</li>
+  </ul>
+  <h2>Who&rsquo;s ahead right now</h2>
+  <p class="sub">Polymarket&rsquo;s &ldquo;Which company has best AI model end of August?&rdquo; board, settling 31 August 2026: Anthropic 90%, OpenAI 4%, Google 3%, xAI 0%, Moonshot 0%, Meta 0%, Alibaba 0%, Z.ai 0%, DeepSeek 0%, Baidu 0%, Xiaomi 0%, Amazon 0%, Bytedance 0%, Nvidia 0%, Thinking Machines 0%, MiniMax 0%, Mistral 0%, Meituan 0%, Tencent 0%, StepFun 0%, Microsoft 0%.</p>
+  <p class="sub">Prediction-market prices as of 28 July 2026, not release announcements.</p>
+</section>
+<!-- static:end -->
+
+<section id="overview" hidden>
+  <h2>Every model on one timeline</h2>
+  <p class="sub">
+    Grouped by lab, soonest first. Some labs have more than one model in play.
+    The dot is the median expected date and the band covers 25% to 75%, so a wide band
+    means the market is unsure. Click a row for the detail.
+  </p>
+  <div class="panel">
+    <ul class="legend" id="legend"></ul>
+    <div id="timeline"></div>
+  </div>
+</section>
+
+<section id="board" hidden>
+  <h2>Who&rsquo;s ahead right now</h2>
+  <p class="sub" id="board-sub"></p>
+  <div class="panel">
+    <div id="ranking"></div>
+    <p class="alsos-note" id="alsos-note"></p>
+    <ul class="alsos" id="alsos"></ul>
+  </div>
+</section>
+
+<section id="detail" hidden>
+  <h2>Model by model</h2>
+  <p class="sub">
+    Each curve is the chance a model has shipped <em>by</em> a given date. The solid line only steps
+    up on dates that have a market, so a flat stretch means nobody is pricing that gap. Where a gap
+    straddles 50%, the dashed segment is the interpolation the median is read off.
+  </p>
+  <div id="cards"></div>
+</section>
+
+<details id="tableview" hidden>
+  <summary>All the numbers as a table</summary>
+  <div class="scroll" id="tables"></div>
+</details>
+
+<div class="state" id="state">Loading market data&hellip;</div>
+
+<footer>
+  <p id="method"></p>
+  <p id="coverage"></p>
+  <p>
+    These are prediction-market prices. They move, some of the markets are thin, and none of
+    this is a release announcement.
+  </p>
+  <p>Every number comes from the linked Polymarket event, via its public API.</p>
+</footer>
+</div>
+
+<div id="tip" role="status" aria-live="polite"></div>
+
+<script>
+"use strict";
+
+const SVG = "http://www.w3.org/2000/svg";
+const el = (tag, attrs, parent) => {
+  const n = document.createElementNS(SVG, tag);
+  for (const k in attrs) if (attrs[k] !== undefined && attrs[k] !== null) n.setAttribute(k, attrs[k]);
+  if (parent) parent.appendChild(n);
+  return n;
+};
+// Labels come from the API — always textContent, never innerHTML.
+const text = (parent, str, attrs) => {
+  const n = el("text", attrs, parent);
+  n.textContent = str;
+  return n;
+};
+const div = (cls, parent, str) => {
+  const n = document.createElement("div");
+  if (cls) n.className = cls;
+  if (str !== undefined) n.textContent = str;
+  if (parent) parent.appendChild(n);
+  return n;
+};
+const tag = (name, cls, parent, str) => {
+  const n = document.createElement(name);
+  if (cls) n.className = cls;
+  if (str !== undefined) n.textContent = str;
+  if (parent) parent.appendChild(n);
+  return n;
+};
+
+// Noon local, so a date never slips a day across timezones.
+const day = iso => new Date(iso + "T12:00:00");
+const MONTH = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
+const fmtDay = d => `${MONTH[d.getMonth()]} ${d.getDate()}`;
+const fmtFull = d => `${MONTH[d.getMonth()]} ${d.getDate()}, ${d.getFullYear()}`;
+const DAY_MS = 864e5;
+const pct = p => p >= 0.995 ? ">99%" : p < 0.005 ? "<1%" : Math.round(p * 100) + "%";
+// The board runs down to 0.1%, where "<1%" would erase the ordering entirely.
+const pctFine = p =>
+  p >= 0.995 ? ">99%" :
+  p >= 0.01 ? Math.round(p * 100) + "%" :
+  (p * 100).toFixed(1).replace(/\.0$/, "") + "%";
+const money = n =>
+  n >= 1e6 ? "$" + (n / 1e6).toFixed(n >= 1e7 ? 0 : 1) + "M" :
+  n >= 1e3 ? "$" + Math.round(n / 1e3) + "k" : "$" + n;
+const away = (from, to) => {
+  const d = Math.round((to - from) / DAY_MS);
+  if (d <= 0) return "any day now";
+  if (d === 1) return "tomorrow";
+  if (d < 45) return `in ${d} days`;
+  const w = Math.round(d / 7);
+  return d < 90 ? `in about ${w} weeks` : `in about ${Math.round(d / 30.4)} months`;
+};
+
+const CONF_STEPS = { high: 3, medium: 2, low: 1 };
+const CONF_WORD = {
+  high: "Deep market, plenty of dates priced",
+  medium: "Moderate volume",
+  low: "Thin market, low confidence",
+};
+
+const tip = document.getElementById("tip");
+function showTip(x, y, build) {
+  tip.textContent = "";
+  build(tip);
+  tip.classList.add("on");
+  // Flip before the edge rather than letting it clip off-screen.
+  const box = tip.getBoundingClientRect();
+  const left = Math.min(Math.max(8, x - box.width / 2), innerWidth - box.width - 8);
+  const top = y - box.height - 14 < 8 ? y + 18 : y - box.height - 14;
+  tip.style.left = left + "px";
+  tip.style.top = top + "px";
+}
+const hideTip = () => tip.classList.remove("on");
+
+function tipContent(node, whenLabel, valueLabel, seriesLabel, note) {
+  div("t-when", node, whenLabel);
+  const row = div("t-row", node);
+  div("t-key", row);
+  div("t-val", row, valueLabel);
+  div("t-lab", row, seriesLabel);
+  if (note) div("t-note", node, note);
+}
+
+/* Shrink a label to fit its column rather than letting it clip or collide.
+   Model names come from event titles and can be long. */
+function fit(node, maxW) {
+  if (maxW <= 0 || node.getComputedTextLength() <= maxW) return node;
+  const full = node.textContent;
+  let lo = 0, hi = full.length;
+  while (lo < hi) {
+    const mid = (lo + hi + 1) >> 1;
+    node.textContent = full.slice(0, mid) + "…";
+    if (node.getComputedTextLength() <= maxW) lo = mid; else hi = mid - 1;
+  }
+  node.textContent = full.slice(0, lo).trimEnd() + "…";
+  return node;
+}
+
+/* Drop ticks that would sit too close to their neighbour to be read. */
+function thin(list, x, minGap) {
+  const out = [];
+  let last = -Infinity;
+  for (const t of list) if (x(t) - last >= minGap) { out.push(t); last = x(t); }
+  return out;
+}
+
+/* Month-start ticks across a span. On a span too short to contain two month
+   starts, fall back to evenly spaced days — a single tick can't orient anyone. */
+function ticks(from, to) {
+  const out = [];
+  const c = new Date(from.getFullYear(), from.getMonth() + 1, 1, 12);
+  while (c <= to) { out.push(new Date(c)); c.setMonth(c.getMonth() + 1); }
+  if (out.length >= 2) return out;
+  const span = +to - +from;
+  return [.25, .5, .75].map(f => new Date(+from + span * f));
+}
+
+/* Bar with its data end rounded and its baseline end square, so the mark reads
+   as anchored rather than floating. */
+function barPath(x0, y, w, h, r) {
+  const rr = Math.min(r, w);
+  return `M${x0} ${y}H${x0 + w - rr}a${rr} ${rr} 0 0 1 ${rr} ${rr}v${h - rr * 2}` +
+         `a${rr} ${rr} 0 0 1 ${-rr} ${rr}H${x0}Z`;
+}
+
+let DATA = null;
+let GROUPS = [];   // [{lab, list:[model]}] — labs by soonest model, models likewise
+let FLAT = [];     // display order, so timeline row i links to card m{i}
+// Every chart registers its reset here, so a scroll dismisses the tooltip and
+// the crosshair together instead of leaving a stranded hairline behind.
+let clears = [];
+const clearAll = () => { hideTip(); clears.forEach(fn => fn()); };
+
+/* DATA.models arrives median-sorted, so first-seen order already ranks labs by
+   their soonest model and each lab's list stays in date order. No extra sort. */
+function groupByLab(models) {
+  const groups = new Map();
+  for (const m of models) {
+    if (!groups.has(m.lab)) groups.set(m.lab, []);
+    groups.get(m.lab).push(m);
+  }
+  return [...groups].map(([lab, list]) => ({ lab, list }));
+}
+
+/* ============================ shared timeline ============================ */
+function renderTimeline() {
+  const host = document.getElementById("timeline");
+  host.textContent = "";
+  const today = day(DATA.as_of);
+
+  // Domain ends at the widest 75% crossing, not the longest tail: one market
+  // priced out to December would otherwise squash every band into a stub.
+  let end = +today + 30 * DAY_MS;
+  for (const m of FLAT) {
+    const far = m.p75 || m.median_date || m.curve[m.curve.length - 1].date;
+    end = Math.max(end, +day(far));
+  }
+  end += (end - +today) * 0.08;
+  const domainEnd = new Date(end);
+
+  const W = Math.max(280, host.clientWidth || 640);
+  const narrow = W < 620;
+  const rowH = narrow ? 74 : 50;
+  const headH = 28;
+  const labelW = narrow ? 0 : Math.min(300, Math.max(140, W * 0.30));
+  // "after Dec 31, 2026" needs more room than a bare date, and dropping the year
+  // to save it makes the one row that most needs care the vaguest on the page.
+  const valueW = narrow ? 0 : (FLAT.some(m => !m.median_date) ? 128 : 104);
+  const padX = 6;
+  const x0 = padX + labelW;
+  const x1 = W - padX - valueW;
+  const axisH = 26;
+  const H = GROUPS.length * headH + FLAT.length * rowH + axisH + 8;
+  const x = t => x0 + ((+t - +today) / (+domainEnd - +today)) * (x1 - x0);
+
+  const svg = el("svg", {
+    width: W, height: H, viewBox: `0 0 ${W} ${H}`,
+    role: "img",
+    "aria-label": "Expected release date per model, grouped by lab, with a 25 to 75 percent uncertainty band",
+  }, host);
+
+  // gridlines behind everything, hairline and recessive
+  const gridBot = H - axisH;
+  for (const t of thin(ticks(today, domainEnd), x, 46)) {
+    el("line", { x1: x(t), x2: x(t), y1: 2, y2: gridBot, stroke: "var(--grid)", "stroke-width": 1 }, svg);
+    // Keep the gridline but drop a label that would sit on top of "today".
+    if (x(t) - x0 < 34) continue;
+    text(svg, fmtDay(t), { x: x(t), y: H - 8, fill: "var(--muted)", "font-size": 11.5, "text-anchor": "middle" });
+  }
+  el("line", { x1: x0, x2: x1, y1: gridBot, y2: gridBot, stroke: "var(--baseline)", "stroke-width": 1 }, svg);
+  text(svg, "today", { x: x0, y: H - 8, fill: "var(--muted)", "font-size": 11.5, "text-anchor": "start" });
+
+  let y = 2;
+  let flatIdx = 0;
+  for (const group of GROUPS) {
+    // Lab name is the identity carrier — it replaces a colour legend entirely.
+    const labName = text(svg, group.lab, { x: padX + 2, y: y + 17, fill: "var(--ink)",
+      "font-size": 13, "font-weight": 600, "letter-spacing": ".01em" });
+    if (group.list.length > 1) {
+      // Measured, not guessed from character count — lab names vary too much.
+      text(svg, `${group.list.length} models`, {
+        x: padX + 2 + labName.getComputedTextLength() + 9, y: y + 17,
+        fill: "var(--muted)", "font-size": 11.5 });
+    }
+    y += headH;
+
+    for (const m of group.list) {
+      const i = flatIdx++;
+      const top = y;
+      const trackY = narrow ? top + 52 : top + rowH / 2;
+      const thinMkt = m.confidence === "low";
+      const g = el("g", { class: "hitrow", tabindex: 0, role: "link",
+        "aria-label": `${m.name}, ${group.lab}. ` +
+          (m.median_date ? "median " + fmtFull(day(m.median_date)) : "no median within the market horizon") +
+          (thinMkt ? ". Thin market" : "") }, svg);
+
+      el("rect", { class: "rowfocus", x: padX, y: top, width: W - padX * 2, height: rowH - 4,
+        rx: 8, fill: "transparent", stroke: "transparent", "stroke-width": 1.5 }, g);
+
+      const label = m.median_date ? fmtFull(day(m.median_date)) : "after " + fmtFull(day(m.not_before));
+
+      if (narrow) {
+        // Name on its own line, date on the next — at this width they cannot
+        // share a baseline without colliding.
+        fit(text(g, m.name, { x: padX + 10, y: top + 19,
+          fill: "var(--ink)", "font-size": 13.5, "font-weight": 600 }), W - padX * 2 - 12);
+        const line2 = el("text", { x: padX + 10, y: top + 37, "font-size": 12.5 }, g);
+        el("tspan", { fill: "var(--ink)", "font-weight": 600 }, line2).textContent = label;
+        if (thinMkt) el("tspan", { fill: "var(--muted)" }, line2).textContent = "  · thin market";
+      } else {
+        fit(text(g, m.name, { x: padX + 12, y: trackY + 5,
+          fill: "var(--ink)", "font-size": 13.5 }), labelW - 22);
+        // Value text wears ink, never the accent; the mark carries the encoding.
+        text(g, label, { x: W - padX - 2, y: trackY + 5, fill: "var(--ink)",
+          "font-size": 13, "font-weight": 600, "text-anchor": "end" });
+      }
+
+      // band: 25%-75%. Open-ended when the curve never reaches 75%.
+      const startISO = m.p25 || m.median_date;
+      if (startISO) {
+        const bx = x(day(startISO));
+        const openEnd = !m.p75;
+        const bw = Math.max(6, (openEnd ? x1 - 10 : x(day(m.p75))) - bx);
+        // A thin market gets a dashed outline instead of a solid fill: the same
+        // geometry, visibly less to be trusted.
+        el("rect", { class: "band", x: bx, y: trackY - 6, width: bw, height: 12, rx: 6,
+          fill: "var(--accent)", "fill-opacity": thinMkt ? .10 : .26,
+          stroke: thinMkt ? "var(--accent)" : "none",
+          "stroke-width": thinMkt ? 1 : 0,
+          "stroke-dasharray": thinMkt ? "3 2.5" : null }, g);
+        if (openEnd) {
+          el("path", { d: `M${bx + bw + 2} ${trackY - 5}l6 5-6 5`, fill: "none",
+            stroke: "var(--accent)", "stroke-width": 2, "stroke-linecap": "round",
+            "stroke-linejoin": "round" }, g);
+        }
+      }
+      if (m.median_date) {
+        // 2px surface ring so the dot stays legible over the band
+        el("circle", { cx: x(day(m.median_date)), cy: trackY, r: 5.5,
+          fill: thinMkt ? "var(--surface-1)" : "var(--accent)",
+          stroke: thinMkt ? "var(--accent)" : "var(--surface-1)", "stroke-width": 2 }, g);
+      }
+
+      const go = () => document.getElementById("m" + i).scrollIntoView({ behavior: "smooth", block: "start" });
+      g.addEventListener("click", go);
+      g.addEventListener("keydown", e => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); go(); } });
+
+      const range = m.p25 && m.p75
+        ? `25–75%: ${fmtDay(day(m.p25))} – ${fmtDay(day(m.p75))}`
+        : m.p25 ? `25% by ${fmtDay(day(m.p25))}, 75% beyond the market horizon` : null;
+      const note = thinMkt
+        ? (range ? range + " · thin market" : "Thin market, low confidence")
+        : range;
+      const at = e => {
+        const r = g.getBoundingClientRect();
+        showTip(e ? e.clientX : r.left + r.width / 2, r.top + rowH / 2 - 6, node =>
+          tipContent(node, `${m.name} · ${group.lab}`, label, "", note));
+      };
+      g.addEventListener("pointermove", at);
+      g.addEventListener("pointerleave", hideTip);
+      g.addEventListener("focus", () => at(null));
+      g.addEventListener("blur", hideTip);
+
+      y += rowH;
+    }
+  }
+}
+
+/* Glyph legend: with one hue, what needs explaining is the marks. */
+function renderLegend() {
+  const host = document.getElementById("legend");
+  host.textContent = "";
+  const item = (draw, label) => {
+    const li = tag("li", "", host);
+    const s = el("svg", { width: 34, height: 14, viewBox: "0 0 34 14", "aria-hidden": "true" }, li);
+    draw(s);
+    li.appendChild(document.createTextNode(label));
+  };
+  item(s => {
+    el("rect", { x: 1, y: 3, width: 32, height: 8, rx: 4, fill: "var(--accent)", "fill-opacity": .26 }, s);
+    el("circle", { cx: 17, cy: 7, r: 4.5, fill: "var(--accent)", stroke: "var(--surface-1)", "stroke-width": 2 }, s);
+  }, "median date, inside its 25–75% band");
+  item(s => {
+    el("rect", { x: 1, y: 3, width: 32, height: 8, rx: 4, fill: "var(--accent)", "fill-opacity": .10,
+      stroke: "var(--accent)", "stroke-width": 1, "stroke-dasharray": "3 2.5" }, s);
+    el("circle", { cx: 17, cy: 7, r: 4.5, fill: "var(--surface-1)", stroke: "var(--accent)", "stroke-width": 2 }, s);
+  }, "thin market, low confidence");
+  item(s => {
+    el("rect", { x: 1, y: 3, width: 22, height: 8, rx: 4, fill: "var(--accent)", "fill-opacity": .26 }, s);
+    el("path", { d: "M26 2l6 5-6 5", fill: "none", stroke: "var(--accent)", "stroke-width": 2,
+      "stroke-linecap": "round", "stroke-linejoin": "round" }, s);
+  }, "75% not reached, could land much later");
+}
+
+/* ======================= per-model CDF step chart ======================= */
+function renderCurve(host, m, chips) {
+  host.textContent = "";
+  const pts = m.curve.map(c => ({ t: day(c.date), p: c.p, iso: c.date }));
+  const from = pts[0].t, last = pts[pts.length - 1].t;
+  // Pad the domain so the final riser gets air instead of hugging the border.
+  const to = new Date(+last + (+last - +from) * 0.06);
+
+  const W = Math.max(260, host.clientWidth || 560);
+  const H = 168;
+  const padT = 12, padB = 24, padR = 10, padL = 40;
+  const x = t => padL + ((+t - +from) / Math.max(1, +to - +from)) * (W - padL - padR);
+  const y = p => padT + (1 - p) * (H - padT - padB);
+
+  const svg = el("svg", {
+    width: W, height: H, viewBox: `0 0 ${W} ${H}`, class: "chart", tabindex: 0,
+    role: "img",
+    "aria-label": `Chance ${m.name} has been released by a given date. ` +
+      m.curve.slice(1).map(c => `${pct(c.p)} by ${fmtFull(day(c.date))}`).join("; "),
+  }, host);
+
+  for (const p of [0, .25, .5, .75, 1]) {
+    el("line", { x1: padL, x2: W - padR, y1: y(p), y2: y(p),
+      stroke: p === 0 ? "var(--baseline)" : "var(--grid)", "stroke-width": 1 }, svg);
+    text(svg, Math.round(p * 100) + "%", { x: padL - 7, y: y(p) + 4,
+      fill: "var(--muted)", "font-size": 11, "text-anchor": "end" });
+  }
+  for (const t of thin(ticks(from, last), x, 44)) {
+    text(svg, fmtDay(t), { x: x(t), y: H - 7, fill: "var(--muted)", "font-size": 11, "text-anchor": "middle" });
+  }
+
+  // Step-after: probability holds at the last priced level, then jumps on the
+  // date a market actually resolves. Never interpolate a rise nobody priced.
+  let d = `M${x(pts[0].t)} ${y(pts[0].p)}`;
+  for (let i = 1; i < pts.length; i++) d += `H${x(pts[i].t)}V${y(pts[i].p)}`;
+  el("path", { d: `${d}V${y(0)}H${x(pts[0].t)}Z`, fill: "var(--accent)", "fill-opacity": .10, stroke: "none" }, svg);
+  el("path", { d, fill: "none", stroke: "var(--accent)", "stroke-width": 2,
+    "stroke-linejoin": "round", "stroke-linecap": "round" }, svg);
+
+  if (m.median_date) {
+    const mx = x(day(m.median_date));
+    // The step curve is what was priced; the median comes from interpolating
+    // across the gap that brackets 50%. Draw that interpolation, or the marker
+    // sits in mid-air contradicting a step that reads 3% on the same date.
+    const j = pts.findIndex(pt => pt.p >= .5);
+    if (j > 0 && pts[j - 1].p < .5) {
+      el("path", { d: `M${x(pts[j-1].t)} ${y(pts[j-1].p)}L${x(pts[j].t)} ${y(pts[j].p)}`,
+        fill: "none", stroke: "var(--accent)", "stroke-width": 1.5, "stroke-opacity": .55,
+        "stroke-dasharray": "4 3", "stroke-linecap": "round" }, svg);
+    }
+    el("line", { x1: mx, x2: mx, y1: y(.5), y2: y(0), stroke: "var(--baseline)", "stroke-width": 1 }, svg);
+    el("circle", { cx: mx, cy: y(.5), r: 4.5, fill: "var(--surface-1)", stroke: "var(--accent)", "stroke-width": 2 }, svg);
+    // Flip the label inward rather than letting it run off the plot.
+    const nearRight = mx + 52 > W - padR;
+    text(svg, "median", { x: mx + (nearRight ? -7 : 7), y: y(.5) - 7,
+      fill: "var(--muted)", "font-size": 11, "text-anchor": nearRight ? "end" : "start" });
+  }
+
+  pts.slice(1).forEach(pt =>
+    el("circle", { cx: x(pt.t), cy: y(pt.p), r: 4, fill: "var(--accent)",
+      stroke: "var(--surface-1)", "stroke-width": 2 }, svg));
+
+  const cross = el("line", { y1: padT, y2: y(0), stroke: "var(--baseline)",
+    "stroke-width": 1, opacity: 0 }, svg);
+  const halo = el("circle", { r: 7, fill: "none", stroke: "var(--accent)", "stroke-width": 2, opacity: 0 }, svg);
+
+  // The crosshair snaps to the nearest priced date, so the reader aims at a
+  // month rather than a 2px line.
+  let active = -1;
+  function focusIdx(i, clientX) {
+    if (i < 1 || i >= pts.length) return;
+    active = i;
+    const pt = pts[i];
+    cross.setAttribute("x1", x(pt.t)); cross.setAttribute("x2", x(pt.t));
+    cross.setAttribute("opacity", 1);
+    halo.setAttribute("cx", x(pt.t)); halo.setAttribute("cy", y(pt.p));
+    halo.setAttribute("opacity", 1);
+    chips.forEach((c, j) => c.classList.toggle("hot", j === i - 1));
+    const box = svg.getBoundingClientRect();
+    showTip(clientX !== undefined ? clientX : box.left + x(pt.t), box.top + y(pt.p), node =>
+      tipContent(node, "Released by " + fmtFull(pt.t), pct(pt.p) + " chance", m.name,
+        i === pts.length - 1 ? "last date this market prices" : null));
+  }
+  function clear() {
+    active = -1;
+    cross.setAttribute("opacity", 0);
+    halo.setAttribute("opacity", 0);
+    chips.forEach(c => c.classList.remove("hot"));
+    hideTip();
+  }
+  function nearest(clientX) {
+    const box = svg.getBoundingClientRect();
+    const px = clientX - box.left;
+    let best = 1, bd = Infinity;
+    for (let i = 1; i < pts.length; i++) {
+      const dd = Math.abs(x(pts[i].t) - px);
+      if (dd < bd) { bd = dd; best = i; }
+    }
+    return best;
+  }
+  clears.push(clear);
+  svg.addEventListener("pointermove", e => focusIdx(nearest(e.clientX), e.clientX));
+  svg.addEventListener("pointerleave", clear);
+  svg.addEventListener("blur", clear);
+  svg.addEventListener("focus", () => focusIdx(active < 1 ? 1 : active));
+  svg.addEventListener("keydown", e => {
+    const step = e.key === "ArrowRight" ? 1 : e.key === "ArrowLeft" ? -1 : 0;
+    if (!step) { if (e.key === "Escape") clear(); return; }
+    e.preventDefault();
+    focusIdx(Math.min(pts.length - 1, Math.max(1, (active < 1 ? 1 : active) + step)));
+  });
+
+  // Chips drive the same crosshair — one interaction, keyboard and pointer alike.
+  chips.forEach((chip, j) => {
+    const enter = () => focusIdx(j + 1);
+    chip.addEventListener("pointerenter", enter);
+    chip.addEventListener("focus", enter);
+    chip.addEventListener("click", enter);
+    chip.addEventListener("pointerleave", clear);
+    chip.addEventListener("blur", clear);
+  });
+}
+
+/* ========================== leaderboard bars ========================== */
+const BAR_FLOOR = 0.01;  // below this a bar is thinner than its own outline
+
+function renderRanking() {
+  const host = document.getElementById("ranking");
+  host.textContent = "";
+  const board = DATA.leaderboard;
+  const bars = board.entries.filter(e => e.p >= BAR_FLOOR);
+
+  const W = Math.max(280, host.clientWidth || 640);
+  const narrow = W < 520;
+  const rowH = narrow ? 44 : 30;
+  const labelW = narrow ? 0 : Math.min(220, Math.max(96, W * 0.26));
+  const valueW = 52;
+  const padX = 4, padB = 20;
+  const x0 = padX + labelW;
+  const x1 = W - padX - valueW;
+  const H = bars.length * rowH + padB + 4;
+  const x = p => x0 + p * (x1 - x0);
+
+  const svg = el("svg", {
+    width: W, height: H, viewBox: `0 0 ${W} ${H}`, role: "img",
+    "aria-label": "Market-implied chance each lab has the best model. " +
+      bars.map(e => `${e.lab} ${pctFine(e.p)}`).join("; "),
+  }, host);
+
+  for (const p of [0, .25, .5, .75, 1]) {
+    el("line", { x1: x(p), x2: x(p), y1: 2, y2: H - padB,
+      stroke: p === 0 ? "var(--baseline)" : "var(--grid)", "stroke-width": 1 }, svg);
+    text(svg, Math.round(p * 100) + "%", { x: x(p), y: H - 6, fill: "var(--muted)",
+      "font-size": 11, "text-anchor": p === 1 ? "end" : p === 0 ? "start" : "middle" });
+  }
+
+  bars.forEach((e, i) => {
+    const top = i * rowH + 2;
+    const barH = 13;
+    const barY = narrow ? top + 24 : top + (rowH - barH) / 2;
+    const g = el("g", { class: "hitbar", tabindex: 0, role: "img",
+      "aria-label": `${e.lab}: ${pctFine(e.p)} chance, ${money(e.volume_usd)} traded` }, svg);
+    el("rect", { class: "rowfocus", x: padX, y: top, width: W - padX * 2, height: rowH - 3,
+      rx: 8, fill: "transparent", stroke: "transparent", "stroke-width": 1.5 }, g);
+
+    fit(text(g, e.lab, narrow
+      ? { x: padX + 2, y: top + 15, fill: "var(--ink)", "font-size": 13.5, "font-weight": 600 }
+      : { x: padX + 2, y: barY + barH - 3, fill: "var(--ink)", "font-size": 13.5 }),
+      narrow ? W - padX * 2 - 4 : labelW - 10);
+
+    el("path", { class: "bar", d: barPath(x(0), barY, Math.max(2, x(e.p) - x(0)), barH, 4),
+      fill: "var(--accent)", "fill-opacity": .82 }, g);
+    text(g, pctFine(e.p), { x: W - padX - 2, y: barY + barH - 2, fill: "var(--ink)",
+      "font-size": 13, "font-weight": 600, "text-anchor": "end" });
+
+    const at = ev => {
+      const r = g.getBoundingClientRect();
+      showTip(ev ? ev.clientX : r.left + r.width / 2, r.top + rowH / 2,
+        node => tipContent(node, e.lab, pctFine(e.p), "chance",
+          `${money(e.volume_usd)} traded` + (e.name !== e.lab ? ` · listed as “${e.name}”` : "")));
+    };
+    g.addEventListener("pointermove", at);
+    g.addEventListener("pointerleave", hideTip);
+    g.addEventListener("focus", () => at(null));
+    g.addEventListener("blur", hideTip);
+  });
+
+  // Everyone the board prices below 1%: direct-labelled, because "<1%" for
+  // twenty labs would throw away the only ordering they have.
+  const rest = board.entries.filter(e => e.p < BAR_FLOOR);
+  const note = document.getElementById("alsos-note");
+  const alsos = document.getElementById("alsos");
+  alsos.textContent = "";
+  note.textContent = rest.length ? "Also priced, all under 1%:" : "";
+  for (const e of rest) {
+    const li = tag("li", "also", alsos);
+    tag("b", "", li, pctFine(e.p));
+    li.appendChild(document.createTextNode(e.lab));
+  }
+}
+
+/* ============================== cards ============================== */
+function renderCards() {
+  const host = document.getElementById("cards");
+  host.textContent = "";
+  const today = day(DATA.as_of);
+  const charts = [];
+  let i = 0;
+
+  for (const group of GROUPS) {
+    const head = div("lab-head", host);
+    tag("h3", "", head, group.lab);
+    if (group.list.length > 1) tag("span", "count", head, `${group.list.length} models in flight`);
+
+    const grid = div("cards", host);
+    for (const m of group.list) {
+      const card = div("card", grid);
+      card.id = "m" + i++;
+
+      const top = div("card-top", card);
+      const id = div("card-id", top);
+      const h4 = tag("h4", "card-name", id, m.name);
+      h4.setAttribute("aria-label", `${m.name}, ${group.lab}`);
+
+      const med = div("card-med", top);
+      div("k", med, m.median_date ? "Median estimate" : "Not before");
+      div("v", med, fmtFull(day(m.median_date || m.not_before)));
+      div("away", med, m.median_date
+        ? away(today, day(m.median_date))
+        : "market prices nothing past this");
+
+      const meta = div("meta", card);
+      const conf = div("conf", meta);
+      const meter = div("meter", conf);
+      meter.setAttribute("aria-hidden", "true"); // the word beside it carries the meaning
+      for (let s = 1; s <= 3; s++) {
+        const seg = document.createElement("i");
+        if (s <= CONF_STEPS[m.confidence]) seg.className = "on";
+        meter.appendChild(seg);
+      }
+      conf.appendChild(document.createTextNode(`${CONF_WORD[m.confidence]} · ${money(m.volume_usd)} traded`));
+      const src = tag("a", "src", meta, "Open market ↗");
+      src.href = m.source;
+      src.rel = "noopener";
+      src.target = "_blank";
+
+      const chartHost = div("", card);
+
+      const rungs = tag("ul", "rungs", card);
+      const chips = m.curve.slice(1).map(c => {
+        const li = tag("li", "", rungs);
+        const b = tag("button", "rung", li);
+        b.type = "button";
+        tag("b", "", b, pct(c.p));
+        b.appendChild(document.createTextNode("by " + fmtDay(day(c.date))));
+        return b;
+      });
+
+      charts.push(() => renderCurve(chartHost, m, chips));
+    }
+  }
+  return charts;
+}
+
+/* ============================ table view ============================ */
+function renderTables() {
+  const host = document.getElementById("tables");
+  host.textContent = "";
+
+  const mk = (caption, cols) => {
+    const t = tag("table", "", host);
+    tag("caption", "", t, caption);
+    const head = tag("thead", "", t);
+    const tr = tag("tr", "", head);
+    for (const c of cols) {
+      const th = tag("th", "", tr, c);
+      th.scope = "col";
+    }
+    return tag("tbody", "", t);
+  };
+  const row = (body, cells) => {
+    const tr = tag("tr", "", body);
+    cells.forEach((c, i) => {
+      const cell = tag(i === 0 ? "th" : "td", "", tr, c);
+      if (i === 0) cell.scope = "row";
+    });
+  };
+
+  const s = mk("Expected release dates — one row per model",
+    ["Model", "Lab", "Median", "25%", "75%", "Confidence", "Volume"]);
+  for (const m of FLAT) {
+    row(s, [m.name, m.lab,
+      m.median_date ? fmtFull(day(m.median_date)) : "after " + fmtFull(day(m.not_before)),
+      m.p25 ? fmtFull(day(m.p25)) : "—",
+      m.p75 ? fmtFull(day(m.p75)) : "—",
+      m.confidence, money(m.volume_usd)]);
+  }
+
+  const b = mk("Every priced date, the same values the charts show on hover",
+    ["Model", "Released by", "Probability"]);
+  for (const m of FLAT) {
+    for (const c of m.curve.slice(1)) row(b, [m.name, fmtFull(day(c.date)), pct(c.p)]);
+  }
+
+  const board = DATA.leaderboard;
+  if (board) {
+    const r = mk(`${board.title} — resolves ${fmtFull(day(board.resolves))}`,
+      ["Lab", "Listed as", "Chance", "Volume"]);
+    for (const e of board.entries) {
+      row(r, [e.lab, e.name === e.lab ? "—" : e.name, pctFine(e.p), money(e.volume_usd)]);
+    }
+  }
+}
+
+/* ============================== boot ============================== */
+function renderHero() {
+  const host = document.getElementById("hero");
+  host.textContent = "";
+  const next = FLAT.find(m => m.median_date) || FLAT[0];
+  if (!next) return;
+  const box = div("hero", host);
+  div("hero-label", box, "Soonest expected");
+  div("hero-model", box, `${next.name} · ${next.lab}`);
+  if (next.median_date) {
+    div("hero-date", box, fmtFull(day(next.median_date)));
+    div("hero-away", box, away(day(DATA.as_of), day(next.median_date)) +
+      ", with even odds it slips later" +
+      (next.confidence === "low" ? " (thin market)" : ""));
+  } else {
+    div("hero-date", box, "after " + fmtFull(day(next.not_before)));
+  }
+}
+
+let curveRenderers = [];
+function renderAll() {
+  clears = [];
+  renderTimeline();
+  if (DATA.leaderboard) renderRanking();
+  curveRenderers.forEach(fn => fn());
+}
+
+fetch("data.json", { cache: "no-cache" })
+  .then(r => r.ok ? r.json() : Promise.reject(new Error("HTTP " + r.status)))
+  .then(data => {
+    DATA = data;
+    // The static copy has served its purpose (crawlers, no-JS); the live page
+    // is about to say the same thing better.
+    document.getElementById("static").remove();
+    GROUPS = groupByLab(data.models);
+    FLAT = GROUPS.flatMap(g => g.list);
+
+    const stamp = new Date(data.generated_at);
+    document.getElementById("stamp").textContent =
+      `${FLAT.length} model${FLAT.length === 1 ? "" : "s"} across ${GROUPS.length} lab` +
+      `${GROUPS.length === 1 ? "" : "s"} · updated ` +
+      stamp.toLocaleString(undefined, { dateStyle: "medium", timeStyle: "short" });
+    document.getElementById("method").textContent =
+      "Method: each release event on Polymarket is a ladder of “released by DATE?” markets, and " +
+      "together they form a probability curve. Where it crosses 50% is the median date shown; 25% " +
+      "and 75% give the band. Settled markets are dropped and the curve is forced non-decreasing, " +
+      "since the raw feed is neither.";
+    document.getElementById("coverage").textContent =
+      "Coverage is whatever Polymarket lists, and only a handful of labs have a release ladder. " +
+      "That is what the board above is for: it prices every lab, including the ones without a " +
+      "release market. If a lab is missing here, nobody has opened a market for it yet.";
+
+    document.getElementById("state").hidden = true;
+    if (!FLAT.length && !data.leaderboard) {
+      const s = document.getElementById("state");
+      s.hidden = false;
+      s.textContent = "No AI markets open right now. Check back when new ones list.";
+      return;
+    }
+    if (FLAT.length) for (const id of ["overview", "detail"]) document.getElementById(id).hidden = false;
+    document.getElementById("tableview").hidden = false;
+
+    if (data.leaderboard) {
+      document.getElementById("board").hidden = false;
+      document.getElementById("board-sub").textContent =
+        `Polymarket's “${data.leaderboard.title}” board, settling ` +
+        `${fmtFull(day(data.leaderboard.resolves))} — ${data.leaderboard.entries.length} labs priced, ` +
+        `${money(data.leaderboard.volume_usd)} traded. Includes labs with no release market of their own.`;
+    }
+
+    renderHero();
+    renderLegend();
+    curveRenderers = renderCards();
+    renderTables();
+    renderAll();
+
+    // Re-render on resize instead of scaling one viewBox: keeps text crisp and
+    // dots round at every width.
+    let queued = false;
+    new ResizeObserver(() => {
+      if (queued) return;
+      queued = true;
+      requestAnimationFrame(() => { queued = false; renderAll(); });
+    }).observe(document.getElementById(FLAT.length ? "timeline" : "ranking"));
+    addEventListener("scroll", clearAll, { passive: true });
+  })
+  .catch(err => {
+    const s = document.getElementById("state");
+    s.textContent = location.protocol === "file:"
+      ? "Can't load data.json straight off the filesystem — run “python3 -m http.server” in this folder and open the page over http instead."
+      : "Couldn't load data.json (" + err.message + "). It's regenerated daily by fetch.py.";
+  });
+</script>
+</body>
+</html>

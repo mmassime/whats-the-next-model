@@ -1,0 +1,31 @@
+name: update data
+
+on:
+  schedule:
+    - cron: "17 6 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      # No pip step on purpose — fetch.py is stdlib only.
+      - run: python3 fetch.py --test
+      - run: python3 fetch.py
+
+      # Each commit of data.json is one snapshot; git log is the whole history
+      # store, which is what Phase 2's movement arrows will read.
+      - name: commit if changed
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          # index.html too: fetch.py rewrites its static: block so the served
+          # markup carries the numbers for crawlers and no-JS readers.
+          git add data.json index.html
+          git diff --cached --quiet || git commit -m "data: $(date -u +%Y-%m-%d)"
+          git push
