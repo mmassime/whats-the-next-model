@@ -1,5 +1,5 @@
 {
- "generated_at": "2026-07-29T09:13:58Z",
+ "generated_at": "2026-07-29T11:36:18Z",
  "as_of": "2026-07-29",
  "models": [
   {
@@ -20,7 +20,7 @@
     },
     {
      "date": "2026-07-31",
-     "p": 0.024
+     "p": 0.0325
     },
     {
      "date": "2026-08-07",
@@ -32,16 +32,16 @@
     }
    ],
    "confidence": "high",
-   "volume_usd": 352535,
+   "volume_usd": 352554,
    "source": "https://polymarket.com/event/next-google-gemini-pro-model-released-byptptpt"
   },
   {
    "name": "Next Kimi K model",
    "lab": "Moonshot",
-   "median_date": "2026-09-03",
+   "median_date": "2026-08-31",
    "not_before": null,
-   "p25": "2026-08-16",
-   "p75": "2026-09-21",
+   "p25": "2026-08-15",
+   "p75": "2026-09-17",
    "curve": [
     {
      "date": "2026-07-29",
@@ -49,15 +49,15 @@
     },
     {
      "date": "2026-09-30",
-     "p": 0.87
+     "p": 0.945
     },
     {
      "date": "2026-12-31",
-     "p": 0.915
+     "p": 0.945
     }
    ],
    "confidence": "low",
-   "volume_usd": 2205,
+   "volume_usd": 2710,
    "source": "https://polymarket.com/event/next-kimi-k-model-released-by-20260722183157724"
   },
   {
@@ -82,11 +82,11 @@
     },
     {
      "date": "2026-09-30",
-     "p": 0.72
+     "p": 0.725
     }
    ],
    "confidence": "medium",
-   "volume_usd": 80339,
+   "volume_usd": 80565,
    "source": "https://polymarket.com/event/next-mythos-class-model-released-by"
   },
   {
@@ -95,7 +95,7 @@
    "median_date": "2026-09-14",
    "not_before": null,
    "p25": "2026-08-27",
-   "p75": "2026-10-27",
+   "p75": "2026-10-21",
    "curve": [
     {
      "date": "2026-07-29",
@@ -107,11 +107,11 @@
     },
     {
      "date": "2026-08-07",
-     "p": 0.0155
+     "p": 0.015
     },
     {
      "date": "2026-08-14",
-     "p": 0.0685
+     "p": 0.0675
     },
     {
      "date": "2026-08-21",
@@ -119,11 +119,11 @@
     },
     {
      "date": "2026-08-31",
-     "p": 0.33
+     "p": 0.325
     },
     {
      "date": "2026-09-30",
-     "p": 0.695
+     "p": 0.71
     },
     {
      "date": "2026-12-31",
@@ -131,15 +131,15 @@
     }
    ],
    "confidence": "high",
-   "volume_usd": 771147,
+   "volume_usd": 772796,
    "source": "https://polymarket.com/event/gpt-6-released-by"
   },
   {
    "name": "Next Claude Sonnet",
    "lab": "Anthropic",
-   "median_date": "2026-09-27",
+   "median_date": "2026-09-26",
    "not_before": null,
-   "p25": "2026-08-26",
+   "p25": "2026-08-25",
    "p75": "2026-10-30",
    "curve": [
     {
@@ -148,7 +148,7 @@
     },
     {
      "date": "2026-08-31",
-     "p": 0.3
+     "p": 0.305
     },
     {
      "date": "2026-10-31",
@@ -195,10 +195,10 @@
   {
    "name": "Next Claude Opus",
    "lab": "Anthropic",
-   "median_date": "2026-11-05",
+   "median_date": "2026-10-22",
    "not_before": null,
-   "p25": "2026-09-24",
-   "p75": "2026-12-19",
+   "p25": "2026-09-19",
+   "p75": "2026-12-06",
    "curve": [
     {
      "date": "2026-07-29",
@@ -206,28 +206,28 @@
     },
     {
      "date": "2026-08-31",
-     "p": 0.105
+     "p": 0.11
     },
     {
      "date": "2026-10-31",
-     "p": 0.47
+     "p": 0.57
     },
     {
      "date": "2026-12-31",
-     "p": 0.82
+     "p": 0.875
     }
    ],
    "confidence": "low",
-   "volume_usd": 1022,
+   "volume_usd": 1214,
    "source": "https://polymarket.com/event/next-claude-opus-released-byptptpt-20260727142323912"
   },
   {
    "name": "Grok 5",
    "lab": "xAI",
-   "median_date": "2026-11-10",
+   "median_date": "2026-11-11",
    "not_before": null,
-   "p25": "2026-10-02",
-   "p75": "2026-12-19",
+   "p25": "2026-10-03",
+   "p75": "2026-12-20",
    "curve": [
     {
      "date": "2026-07-29",
@@ -235,15 +235,15 @@
     },
     {
      "date": "2026-08-15",
-     "p": 0.014
+     "p": 0.015
     },
     {
      "date": "2026-08-31",
-     "p": 0.041
+     "p": 0.0405
     },
     {
      "date": "2026-12-31",
-     "p": 0.83
+     "p": 0.82
     }
    ],
    "confidence": "low",
@@ -253,7 +253,7 @@
   {
    "name": "New MAI thinking model",
    "lab": "Microsoft",
-   "median_date": "2026-12-23",
+   "median_date": "2026-12-19",
    "not_before": null,
    "p25": "2026-09-13",
    "p75": null,
@@ -268,7 +268,7 @@
     },
     {
      "date": "2026-12-31",
-     "p": 0.515
+     "p": 0.525
     }
    ],
    "confidence": "low",
@@ -278,9 +278,9 @@
   {
    "name": "Kimi K4",
    "lab": "Moonshot",
-   "median_date": "2026-12-30",
+   "median_date": "2026-12-31",
    "not_before": null,
-   "p25": "2026-11-12",
+   "p25": "2026-11-13",
    "p75": null,
    "curve": [
     {
@@ -293,7 +293,7 @@
     },
     {
      "date": "2026-12-31",
-     "p": 0.505
+     "p": 0.5
     }
    ],
    "confidence": "low",
@@ -308,56 +308,56 @@
    {
     "name": "Anthropic",
     "lab": "Anthropic",
-    "p": 0.91,
-    "volume_usd": 57499
+    "p": 0.925,
+    "volume_usd": 58932
    },
    {
     "name": "OpenAI",
     "lab": "OpenAI",
-    "p": 0.0525,
-    "volume_usd": 37505
+    "p": 0.0395,
+    "volume_usd": 37606
    },
    {
     "name": "Google",
     "lab": "Google",
     "p": 0.0325,
-    "volume_usd": 41034
+    "volume_usd": 41100
    },
    {
     "name": "SpaceXAI",
     "lab": "xAI",
     "p": 0.005,
-    "volume_usd": 45042
+    "volume_usd": 45107
    },
    {
     "name": "Moonshot",
     "lab": "Moonshot",
     "p": 0.0035,
-    "volume_usd": 32221
+    "volume_usd": 32287
    },
    {
     "name": "Meta",
     "lab": "Meta",
     "p": 0.0015,
-    "volume_usd": 41813
+    "volume_usd": 41883
    },
    {
     "name": "Alibaba",
     "lab": "Alibaba",
     "p": 0.0015,
-    "volume_usd": 36876
+    "volume_usd": 36942
    },
    {
     "name": "Z.ai",
     "lab": "Z.ai",
     "p": 0.0015,
-    "volume_usd": 27030
+    "volume_usd": 27042
    },
    {
     "name": "DeepSeek",
     "lab": "DeepSeek",
     "p": 0.0015,
-    "volume_usd": 31047
+    "volume_usd": 31052
    },
    {
     "name": "Baidu",
@@ -432,7 +432,7 @@
     "volume_usd": 8518
    }
   ],
-  "volume_usd": 434754,
+  "volume_usd": 436641,
   "source": "https://polymarket.com/event/which-company-has-best-ai-model-end-of-august-20260717015626546"
  }
 }
