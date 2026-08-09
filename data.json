@@ -1,5 +1,5 @@
 {
- "generated_at": "2026-08-09T07:25:53Z",
+ "generated_at": "2026-08-09T09:59:27Z",
  "as_of": "2026-08-09",
  "models": [
   {
@@ -16,11 +16,11 @@
     },
     {
      "date": "2026-09-30",
-     "p": 0.934
+     "p": 0.9295
     },
     {
      "date": "2026-12-31",
-     "p": 0.934
+     "p": 0.9355
     }
    ],
    "confidence": "low",
@@ -49,11 +49,11 @@
     },
     {
      "date": "2026-09-15",
-     "p": 0.485
+     "p": 0.49
     },
     {
      "date": "2026-09-30",
-     "p": 0.7895
+     "p": 0.785
     },
     {
      "date": "2026-10-31",
@@ -61,15 +61,15 @@
     }
    ],
    "confidence": "high",
-   "volume_usd": 127375,
+   "volume_usd": 127455,
    "source": "https://polymarket.com/event/openais-astra-released-by-20260801214557729"
   },
   {
    "name": "Next Mythos-Class Model",
    "lab": "Anthropic",
-   "median_date": "2026-09-21",
+   "median_date": "2026-09-20",
    "not_before": null,
-   "p25": "2026-09-04",
+   "p25": "2026-08-31",
    "p75": null,
    "curve": [
     {
@@ -78,7 +78,7 @@
     },
     {
      "date": "2026-08-31",
-     "p": 0.195
+     "p": 0.245
     },
     {
      "date": "2026-09-30",
@@ -86,7 +86,7 @@
     }
    ],
    "confidence": "medium",
-   "volume_usd": 101332,
+   "volume_usd": 101532,
    "source": "https://polymarket.com/event/next-mythos-class-model-released-by"
   },
   {
@@ -94,8 +94,8 @@
    "lab": "OpenAI",
    "median_date": "2026-09-28",
    "not_before": null,
-   "p25": "2026-09-07",
-   "p75": "2026-11-30",
+   "p25": "2026-09-08",
+   "p75": "2026-12-06",
    "curve": [
     {
      "date": "2026-08-09",
@@ -107,11 +107,11 @@
     },
     {
      "date": "2026-08-21",
-     "p": 0.0925
+     "p": 0.0935
     },
     {
      "date": "2026-08-31",
-     "p": 0.17
+     "p": 0.145
     },
     {
      "date": "2026-09-30",
@@ -119,20 +119,20 @@
     },
     {
      "date": "2026-12-31",
-     "p": 0.865
+     "p": 0.835
     }
    ],
    "confidence": "high",
-   "volume_usd": 1225972,
+   "volume_usd": 1226601,
    "source": "https://polymarket.com/event/gpt-6-released-by"
   },
   {
    "name": "Next Claude Sonnet",
    "lab": "Anthropic",
-   "median_date": "2026-09-29",
+   "median_date": "2026-09-28",
    "not_before": null,
    "p25": "2026-08-29",
-   "p75": "2026-10-31",
+   "p75": "2026-10-30",
    "curve": [
     {
      "date": "2026-08-09",
@@ -140,11 +140,11 @@
     },
     {
      "date": "2026-08-31",
-     "p": 0.27
+     "p": 0.28
     },
     {
      "date": "2026-10-31",
-     "p": 0.75
+     "p": 0.76
     },
     {
      "date": "2026-12-31",
@@ -158,10 +158,10 @@
   {
    "name": "Next Claude Haiku",
    "lab": "Anthropic",
-   "median_date": "2026-09-30",
+   "median_date": "2026-10-02",
    "not_before": null,
    "p25": "2026-08-25",
-   "p75": "2026-12-28",
+   "p75": null,
    "curve": [
     {
      "date": "2026-08-09",
@@ -173,11 +173,11 @@
     },
     {
      "date": "2026-10-31",
-     "p": 0.65
+     "p": 0.635
     },
     {
      "date": "2026-12-31",
-     "p": 0.755
+     "p": 0.655
     }
    ],
    "confidence": "low",
@@ -210,15 +210,15 @@
     }
    ],
    "confidence": "low",
-   "volume_usd": 2908,
+   "volume_usd": 2913,
    "source": "https://polymarket.com/event/next-claude-opus-released-byptptpt-20260727142323912"
   },
   {
    "name": "New MAI thinking model",
    "lab": "Microsoft",
-   "median_date": "2026-12-14",
+   "median_date": "2026-12-23",
    "not_before": null,
-   "p25": "2026-09-16",
+   "p25": "2026-09-17",
    "p75": null,
    "curve": [
     {
@@ -227,11 +227,11 @@
     },
     {
      "date": "2026-09-30",
-     "p": 0.34
+     "p": 0.335
     },
     {
      "date": "2026-12-31",
-     "p": 0.535
+     "p": 0.515
     }
    ],
    "confidence": "low",
@@ -252,7 +252,7 @@
     },
     {
      "date": "2026-08-31",
-     "p": 0.085
+     "p": 0.08
     },
     {
      "date": "2026-09-30",
@@ -260,7 +260,7 @@
     }
    ],
    "confidence": "medium",
-   "volume_usd": 145479,
+   "volume_usd": 145501,
    "source": "https://polymarket.com/event/gemini-4pt0-released-by-june-30-2026"
   },
   {
@@ -268,7 +268,7 @@
    "lab": "Google",
    "median_date": null,
    "not_before": "2026-08-31",
-   "p25": "2026-08-21",
+   "p25": "2026-08-22",
    "p75": null,
    "curve": [
     {
@@ -277,19 +277,19 @@
     },
     {
      "date": "2026-08-14",
-     "p": 0.075
+     "p": 0.135
     },
     {
      "date": "2026-08-21",
-     "p": 0.245
+     "p": 0.235
     },
     {
      "date": "2026-08-31",
-     "p": 0.4345
+     "p": 0.4725
     }
    ],
    "confidence": "medium",
-   "volume_usd": 874030,
+   "volume_usd": 878406,
    "source": "https://polymarket.com/event/next-google-gemini-pro-model-released-byptptpt"
   },
   {
@@ -297,7 +297,7 @@
    "lab": "xAI",
    "median_date": null,
    "not_before": "2026-12-31",
-   "p25": "2026-11-03",
+   "p25": "2026-11-11",
    "p75": null,
    "curve": [
     {
@@ -310,11 +310,11 @@
     },
     {
      "date": "2026-08-31",
-     "p": 0.03
+     "p": 0.032
     },
     {
      "date": "2026-12-31",
-     "p": 0.45
+     "p": 0.4
     }
    ],
    "confidence": "low",
@@ -339,11 +339,11 @@
     },
     {
      "date": "2026-12-31",
-     "p": 0.185
+     "p": 0.175
     }
    ],
    "confidence": "low",
-   "volume_usd": 6812,
+   "volume_usd": 6819,
    "source": "https://polymarket.com/event/kimi-k4-released-by-20260722184115883"
   }
  ],
@@ -355,55 +355,55 @@
     "name": "Anthropic",
     "lab": "Anthropic",
     "p": 0.915,
-    "volume_usd": 296043
+    "volume_usd": 296391
    },
    {
     "name": "OpenAI",
     "lab": "OpenAI",
-    "p": 0.062,
-    "volume_usd": 136887
+    "p": 0.0575,
+    "volume_usd": 136893
    },
    {
     "name": "Google",
     "lab": "Google",
     "p": 0.0205,
-    "volume_usd": 112670
+    "volume_usd": 112676
    },
    {
     "name": "Meta",
     "lab": "Meta",
     "p": 0.0025,
-    "volume_usd": 123477
+    "volume_usd": 123487
    },
    {
     "name": "Alibaba",
     "lab": "Alibaba",
     "p": 0.0015,
-    "volume_usd": 116640
+    "volume_usd": 117213
    },
    {
     "name": "Moonshot",
     "lab": "Moonshot",
     "p": 0.0015,
-    "volume_usd": 84757
+    "volume_usd": 85009
    },
    {
     "name": "Z.ai",
     "lab": "Z.ai",
     "p": 0.0015,
-    "volume_usd": 89497
+    "volume_usd": 89596
    },
    {
     "name": "SpaceXAI",
     "lab": "xAI",
     "p": 0.0015,
-    "volume_usd": 118741
+    "volume_usd": 118772
    },
    {
     "name": "DeepSeek",
     "lab": "DeepSeek",
     "p": 0.0015,
-    "volume_usd": 113246
+    "volume_usd": 113331
    },
    {
     "name": "Baidu",
@@ -478,7 +478,7 @@
     "volume_usd": 11518
    }
   ],
-  "volume_usd": 1341875,
+  "volume_usd": 1343285,
   "source": "https://polymarket.com/event/which-company-has-best-ai-model-end-of-august-20260717015626546"
  }
 }
