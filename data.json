@@ -1,5 +1,5 @@
 {
- "generated_at": "2026-09-10T16:30:39Z",
+ "generated_at": "2026-09-10T20:55:42Z",
  "as_of": "2026-09-10",
  "models": [
   {
@@ -16,19 +16,19 @@
     },
     {
      "date": "2026-09-12",
-     "p": 0.53
+     "p": 0.45
     },
     {
      "date": "2026-09-14",
-     "p": 0.69
+     "p": 0.65
     },
     {
      "date": "2026-09-18",
-     "p": 0.76
+     "p": 0.765
     }
    ],
    "confidence": "low",
-   "volume_usd": 5367,
+   "volume_usd": 7075,
    "source": "https://polymarket.com/event/next-grok-model-4pt7-released-by"
   },
   {
@@ -66,7 +66,7 @@
    "median_date": "2026-09-22",
    "not_before": null,
    "p25": "2026-09-16",
-   "p75": "2026-09-29",
+   "p75": "2026-09-28",
    "curve": [
     {
      "date": "2026-09-10",
@@ -74,19 +74,19 @@
     },
     {
      "date": "2026-09-30",
-     "p": 0.81
+     "p": 0.845
     },
     {
      "date": "2026-10-31",
-     "p": 0.86
+     "p": 0.9
     },
     {
      "date": "2026-11-30",
-     "p": 0.9785
+     "p": 0.982
     }
    ],
    "confidence": "low",
-   "volume_usd": 7734,
+   "volume_usd": 7820,
    "source": "https://polymarket.com/event/next-openai-gpt-sol-5pt7-released-byptptpt"
   },
   {
@@ -103,15 +103,15 @@
     },
     {
      "date": "2026-09-15",
-     "p": 0.0325
+     "p": 0.032
     },
     {
      "date": "2026-09-30",
-     "p": 0.8485
+     "p": 0.854
     },
     {
      "date": "2026-12-31",
-     "p": 0.9875
+     "p": 0.987
     }
    ],
    "confidence": "medium",
@@ -136,11 +136,11 @@
     },
     {
      "date": "2026-10-31",
-     "p": 0.9795
+     "p": 0.979
     },
     {
      "date": "2026-12-31",
-     "p": 0.9865
+     "p": 0.986
     }
    ],
    "confidence": "medium",
@@ -153,7 +153,7 @@
    "median_date": "2026-09-24",
    "not_before": null,
    "p25": "2026-09-17",
-   "p75": "2026-10-07",
+   "p75": "2026-10-04",
    "curve": [
     {
      "date": "2026-09-10",
@@ -165,11 +165,11 @@
     },
     {
      "date": "2026-10-31",
-     "p": 0.785
+     "p": 0.815
     },
     {
      "date": "2026-11-30",
-     "p": 0.855
+     "p": 0.88
     }
    ],
    "confidence": "low",
@@ -177,12 +177,37 @@
    "source": "https://polymarket.com/event/next-openai-gpt-terra-5pt7-released-byptptpt"
   },
   {
-   "name": "Next Z.ai GLM (5.4+)",
-   "lab": "Other",
+   "name": "Next Gemini Flash Model (3.9+)",
+   "lab": "Google",
    "median_date": "2026-10-08",
    "not_before": null,
+   "p25": "2026-09-24",
+   "p75": "2026-10-21",
+   "curve": [
+    {
+     "date": "2026-09-10",
+     "p": 0.0
+    },
+    {
+     "date": "2026-10-31",
+     "p": 0.925
+    },
+    {
+     "date": "2026-11-30",
+     "p": 0.935
+    }
+   ],
+   "confidence": "low",
+   "volume_usd": 2316,
+   "source": "https://polymarket.com/event/next-gemini-flash-model-3pt9-released-byptptpt"
+  },
+  {
+   "name": "Next Z.ai GLM (5.4+)",
+   "lab": "Other",
+   "median_date": "2026-10-11",
+   "not_before": null,
    "p25": "2026-09-15",
-   "p75": "2026-10-24",
+   "p75": "2026-10-25",
    "curve": [
     {
      "date": "2026-09-10",
@@ -190,11 +215,11 @@
     },
     {
      "date": "2026-09-15",
-     "p": 0.2675
+     "p": 0.259
     },
     {
      "date": "2026-09-30",
-     "p": 0.375
+     "p": 0.31
     },
     {
      "date": "2026-10-31",
@@ -202,33 +227,8 @@
     }
    ],
    "confidence": "medium",
-   "volume_usd": 16092,
+   "volume_usd": 16222,
    "source": "https://polymarket.com/event/next-zptai-glm-5pt4-released-byptptpt"
-  },
-  {
-   "name": "Next Gemini Flash Model (3.9+)",
-   "lab": "Google",
-   "median_date": "2026-10-08",
-   "not_before": null,
-   "p25": "2026-09-24",
-   "p75": "2026-10-22",
-   "curve": [
-    {
-     "date": "2026-09-10",
-     "p": 0.0
-    },
-    {
-     "date": "2026-10-31",
-     "p": 0.92
-    },
-    {
-     "date": "2026-11-30",
-     "p": 0.93
-    }
-   ],
-   "confidence": "low",
-   "volume_usd": 2316,
-   "source": "https://polymarket.com/event/next-gemini-flash-model-3pt9-released-byptptpt"
   },
   {
    "name": "Next Claude Sonnet",
@@ -252,12 +252,41 @@
     },
     {
      "date": "2026-12-31",
-     "p": 0.948
+     "p": 0.975
     }
    ],
    "confidence": "medium",
    "volume_usd": 15346,
    "source": "https://polymarket.com/event/next-claude-sonnet-released-byptptpt-20260701203831153"
+  },
+  {
+   "name": "Next Google Gemini Flash-Lite Model (3.6+)",
+   "lab": "Google",
+   "median_date": "2026-10-13",
+   "not_before": null,
+   "p25": "2026-09-22",
+   "p75": null,
+   "curve": [
+    {
+     "date": "2026-09-10",
+     "p": 0.0
+    },
+    {
+     "date": "2026-09-30",
+     "p": 0.425
+    },
+    {
+     "date": "2026-10-31",
+     "p": 0.6
+    },
+    {
+     "date": "2026-11-30",
+     "p": 0.735
+    }
+   ],
+   "confidence": "low",
+   "volume_usd": 5123,
+   "source": "https://polymarket.com/event/next-google-gemini-flash-lite-model-3pt6-released-byptptpt"
   },
   {
    "name": "Next Muse Spark (1.4+)",
@@ -285,33 +314,29 @@
    "source": "https://polymarket.com/event/next-muse-spark-1pt4-released-byptptpt"
   },
   {
-   "name": "Next Google Gemini Flash-Lite Model (3.6+)",
-   "lab": "Google",
-   "median_date": "2026-10-18",
+   "name": "GPT Astra 6.1+",
+   "lab": "OpenAI",
+   "median_date": "2026-10-16",
    "not_before": null,
-   "p25": "2026-09-22",
-   "p75": null,
+   "p25": "2026-09-28",
+   "p75": "2026-11-16",
    "curve": [
     {
      "date": "2026-09-10",
      "p": 0.0
     },
     {
-     "date": "2026-09-30",
-     "p": 0.405
-    },
-    {
      "date": "2026-10-31",
-     "p": 0.57
+     "p": 0.7
     },
     {
-     "date": "2026-11-30",
-     "p": 0.73
+     "date": "2026-12-31",
+     "p": 0.885
     }
    ],
    "confidence": "low",
-   "volume_usd": 5123,
-   "source": "https://polymarket.com/event/next-google-gemini-flash-lite-model-3pt6-released-byptptpt"
+   "volume_usd": 1648,
+   "source": "https://polymarket.com/event/gpt-astra-6pt1-released-byptptpt"
   },
   {
    "name": "Meta's \"Watermelon\" model",
@@ -348,7 +373,7 @@
    "median_date": "2026-10-21",
    "not_before": null,
    "p25": "2026-10-08",
-   "p75": "2026-11-09",
+   "p75": "2026-11-10",
    "curve": [
     {
      "date": "2026-09-10",
@@ -356,7 +381,7 @@
     },
     {
      "date": "2026-09-15",
-     "p": 0.0065
+     "p": 0.006
     },
     {
      "date": "2026-09-30",
@@ -364,7 +389,7 @@
     },
     {
      "date": "2026-10-31",
-     "p": 0.695
+     "p": 0.69
     },
     {
      "date": "2026-11-30",
@@ -372,33 +397,8 @@
     }
    ],
    "confidence": "high",
-   "volume_usd": 457072,
+   "volume_usd": 457081,
    "source": "https://polymarket.com/event/gemini-4pt0-released-by-june-30-2026"
-  },
-  {
-   "name": "GPT Astra 6.1+",
-   "lab": "OpenAI",
-   "median_date": "2026-10-23",
-   "not_before": null,
-   "p25": "2026-10-01",
-   "p75": "2026-12-03",
-   "curve": [
-    {
-     "date": "2026-09-10",
-     "p": 0.0
-    },
-    {
-     "date": "2026-10-31",
-     "p": 0.595
-    },
-    {
-     "date": "2026-12-31",
-     "p": 0.88
-    }
-   ],
-   "confidence": "low",
-   "volume_usd": 1343,
-   "source": "https://polymarket.com/event/gpt-astra-6pt1-released-byptptpt"
   },
   {
    "name": "Next Claude Haiku",
@@ -418,16 +418,41 @@
     },
     {
      "date": "2026-10-31",
-     "p": 0.615
+     "p": 0.6
     },
     {
      "date": "2026-12-31",
-     "p": 0.615
+     "p": 0.6
     }
    ],
    "confidence": "low",
    "volume_usd": 9502,
    "source": "https://polymarket.com/event/next-claude-haiku-released-byptptpt-20260701205353326"
+  },
+  {
+   "name": "Next Alibaba Qwen Max (3.9+)",
+   "lab": "Alibaba",
+   "median_date": "2026-10-24",
+   "not_before": null,
+   "p25": "2026-10-09",
+   "p75": null,
+   "curve": [
+    {
+     "date": "2026-09-10",
+     "p": 0.0
+    },
+    {
+     "date": "2026-09-30",
+     "p": 0.115
+    },
+    {
+     "date": "2026-10-31",
+     "p": 0.605
+    }
+   ],
+   "confidence": "low",
+   "volume_usd": 8275,
+   "source": "https://polymarket.com/event/next-alibaba-qwen-max-3pt9-released-byptptpt"
   },
   {
    "name": "Next Google Gemini Pro Model",
@@ -443,7 +468,7 @@
     },
     {
      "date": "2026-09-15",
-     "p": 0.033
+     "p": 0.0275
     },
     {
      "date": "2026-09-30",
@@ -455,20 +480,20 @@
     },
     {
      "date": "2026-10-31",
-     "p": 0.68
+     "p": 0.685
     }
    ],
    "confidence": "high",
-   "volume_usd": 1273057,
+   "volume_usd": 1273105,
    "source": "https://polymarket.com/event/next-google-gemini-pro-model-released-byptptpt"
   },
   {
    "name": "Next Fable Model (5.2+)",
    "lab": "Anthropic",
-   "median_date": "2026-10-27",
+   "median_date": "2026-10-28",
    "not_before": null,
    "p25": "2026-10-04",
-   "p75": "2026-12-09",
+   "p75": "2026-12-10",
    "curve": [
     {
      "date": "2026-09-10",
@@ -476,11 +501,11 @@
     },
     {
      "date": "2026-10-31",
-     "p": 0.54
+     "p": 0.535
     },
     {
      "date": "2026-12-31",
-     "p": 0.87
+     "p": 0.865
     }
    ],
    "confidence": "medium",
@@ -488,11 +513,11 @@
    "source": "https://polymarket.com/event/next-fable-model-5pt2-released-byptptpt"
   },
   {
-   "name": "Next Alibaba Qwen Max (3.9+)",
-   "lab": "Alibaba",
-   "median_date": "2026-10-30",
+   "name": "Next DeepSeek Pro",
+   "lab": "DeepSeek",
+   "median_date": "2026-11-29",
    "not_before": null,
-   "p25": "2026-10-11",
+   "p25": "2026-11-04",
    "p75": null,
    "curve": [
     {
@@ -501,48 +526,27 @@
     },
     {
      "date": "2026-09-30",
-     "p": 0.11
+     "p": 0.1
     },
     {
      "date": "2026-10-31",
-     "p": 0.515
+     "p": 0.215
+    },
+    {
+     "date": "2026-11-30",
+     "p": 0.505
     }
    ],
    "confidence": "low",
-   "volume_usd": 8214,
-   "source": "https://polymarket.com/event/next-alibaba-qwen-max-3pt9-released-byptptpt"
-  },
-  {
-   "name": "New MAI thinking model",
-   "lab": "Microsoft",
-   "median_date": "2026-12-21",
-   "not_before": null,
-   "p25": "2026-09-29",
-   "p75": null,
-   "curve": [
-    {
-     "date": "2026-09-10",
-     "p": 0.0
-    },
-    {
-     "date": "2026-09-30",
-     "p": 0.26
-    },
-    {
-     "date": "2026-12-31",
-     "p": 0.53
-    }
-   ],
-   "confidence": "low",
-   "volume_usd": 489,
-   "source": "https://polymarket.com/event/new-mai-thinking-model-released-byptptpt-20260710200926146"
+   "volume_usd": 6907,
+   "source": "https://polymarket.com/event/next-deepseek-pro-released-byptptpt"
   },
   {
    "name": "Grok 5",
    "lab": "xAI",
-   "median_date": "2026-12-27",
+   "median_date": "2026-12-26",
    "not_before": null,
-   "p25": "2026-12-07",
+   "p25": "2026-12-04",
    "p75": null,
    "curve": [
     {
@@ -555,11 +559,11 @@
     },
     {
      "date": "2026-11-30",
-     "p": 0.16
+     "p": 0.2
     },
     {
      "date": "2026-12-31",
-     "p": 0.555
+     "p": 0.56
     }
    ],
    "confidence": "medium",
@@ -592,7 +596,7 @@
     }
    ],
    "confidence": "medium",
-   "volume_usd": 19957,
+   "volume_usd": 19977,
    "source": "https://polymarket.com/event/claude-6-released-byptptpt"
   },
   {
@@ -601,7 +605,7 @@
    "median_date": "2027-07-14",
    "not_before": null,
    "p25": "2027-02-11",
-   "p75": "2027-12-05",
+   "p75": "2027-11-30",
    "curve": [
     {
      "date": "2026-09-10",
@@ -613,12 +617,37 @@
     },
     {
      "date": "2027-12-31",
-     "p": 0.795
+     "p": 0.805
     }
    ],
    "confidence": "medium",
-   "volume_usd": 10917,
+   "volume_usd": 11047,
    "source": "https://polymarket.com/event/gpt-7-released-byptptpt"
+  },
+  {
+   "name": "New MAI thinking model",
+   "lab": "Microsoft",
+   "median_date": null,
+   "not_before": "2026-12-31",
+   "p25": "2026-09-29",
+   "p75": null,
+   "curve": [
+    {
+     "date": "2026-09-10",
+     "p": 0.0
+    },
+    {
+     "date": "2026-09-30",
+     "p": 0.265
+    },
+    {
+     "date": "2026-12-31",
+     "p": 0.47
+    }
+   ],
+   "confidence": "low",
+   "volume_usd": 489,
+   "source": "https://polymarket.com/event/new-mai-thinking-model-released-byptptpt-20260710200926146"
   },
   {
    "name": "Kimi K4",
@@ -634,7 +663,7 @@
     },
     {
      "date": "2026-10-31",
-     "p": 0.0365
+     "p": 0.0315
     },
     {
      "date": "2026-12-31",
@@ -659,45 +688,16 @@
     },
     {
      "date": "2026-09-30",
-     "p": 0.11
+     "p": 0.105
     },
     {
      "date": "2026-10-31",
-     "p": 0.195
+     "p": 0.14
     }
    ],
    "confidence": "medium",
-   "volume_usd": 95979,
+   "volume_usd": 96336,
    "source": "https://polymarket.com/event/ssi-public-model-released-by-20260810094604188"
-  },
-  {
-   "name": "Next DeepSeek Pro",
-   "lab": "DeepSeek",
-   "median_date": null,
-   "not_before": "2026-11-30",
-   "p25": "2026-10-29",
-   "p75": null,
-   "curve": [
-    {
-     "date": "2026-09-10",
-     "p": 0.0
-    },
-    {
-     "date": "2026-09-30",
-     "p": 0.1
-    },
-    {
-     "date": "2026-10-31",
-     "p": 0.26
-    },
-    {
-     "date": "2026-11-30",
-     "p": 0.405
-    }
-   ],
-   "confidence": "low",
-   "volume_usd": 6829,
-   "source": "https://polymarket.com/event/next-deepseek-pro-released-byptptpt"
   },
   {
    "name": "Next Alibaba Qwen Plus (3.8+)",
@@ -733,19 +733,19 @@
     "name": "Anthropic",
     "lab": "Anthropic",
     "p": 0.875,
-    "volume_usd": 625110
+    "volume_usd": 625875
    },
    {
     "name": "OpenAI",
     "lab": "OpenAI",
     "p": 0.088,
-    "volume_usd": 547636
+    "volume_usd": 548442
    },
    {
     "name": "Google",
     "lab": "Google",
-    "p": 0.0285,
-    "volume_usd": 268844
+    "p": 0.027,
+    "volume_usd": 269490
    },
    {
     "name": "Meta",
@@ -757,7 +757,7 @@
     "name": "SpaceXAI",
     "lab": "xAI",
     "p": 0.003,
-    "volume_usd": 265363
+    "volume_usd": 265664
    },
    {
     "name": "Alibaba",
@@ -856,7 +856,7 @@
     "volume_usd": 38694
    }
   ],
-  "volume_usd": 2885031,
+  "volume_usd": 2887550,
   "source": "https://polymarket.com/event/which-company-has-the-best-ai-model-end-of-september-20260717143435868"
  }
 }
